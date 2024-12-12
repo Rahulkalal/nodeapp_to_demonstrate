@@ -3,7 +3,7 @@ name: Node.js CI/CD Pipeline
 on:
   push:
     branches:
-      - main
+      - main  # Trigger the workflow on push to the main branch
 
 jobs:
   build:
@@ -23,9 +23,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Run tests (ensure that coverage/ and test-output.log are generated)
+      # Run tests and output to log file
       - name: Run tests
-        run: npm test --coverage
+        run: npm test --coverage > test-output.log 2>&1
 
       # List files before upload (for debugging)
       - name: List files before upload
@@ -41,8 +41,8 @@ jobs:
         with:
           name: test-results
           path: |
-            coverage/  # If you want to upload coverage files
-            test-output.log  # If you want to upload logs
+            coverage/  # Upload coverage directory
+            test-output.log  # Upload test log file
 
   deploy:
     runs-on: ubuntu-latest
@@ -63,4 +63,4 @@ jobs:
       - name: Display downloaded artifacts
         run: |
           echo "Artifacts have been downloaded!"
-          ls -l
+          ls -l  # List the contents of the downloaded artifacts
