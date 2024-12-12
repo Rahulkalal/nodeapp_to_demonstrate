@@ -3,13 +3,13 @@ name: Node.js CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # This triggers the workflow on push to the main branch
+      - main  # Trigger on push to main branch
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # Step 1: Checkout the code
+      # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v4.2.2
 
@@ -27,7 +27,7 @@ jobs:
       - name: Run tests
         run: npm test --coverage > test-output.log 2>&1
 
-      # Step 5: List the contents of the coverage directory and log file (for debugging)
+      # Step 5: List files before upload (for debugging)
       - name: List files before upload
         run: |
           echo "Listing contents of coverage/ directory"
@@ -39,7 +39,7 @@ jobs:
       - name: Upload test results
         uses: actions/upload-artifact@v4.4.3
         with:
-          name: test-results
+          name: test-results  # This is the artifact name
           path: |
             coverage/  # Upload coverage directory
             test-output.log  # Upload test log file
@@ -57,7 +57,7 @@ jobs:
       - name: Download build artifacts
         uses: actions/download-artifact@v4.1.8
         with:
-          name: test-results
+          name: test-results  # This must match the artifact name used in the build job
 
       # Step 3: Example of using the artifacts (you could deploy, analyze logs, etc.)
       - name: Display downloaded artifacts
