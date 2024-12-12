@@ -23,9 +23,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Run tests
+      # Run tests (ensure that coverage/ and test-output.log are generated)
       - name: Run tests
-        run: npm test
+        run: npm test --coverage
+
+      # List files before upload (for debugging)
+      - name: List files before upload
+        run: |
+          echo "Listing contents of coverage/ directory"
+          ls -l coverage/
+          echo "Listing test-output.log file"
+          ls -l test-output.log
 
       # Upload build artifacts (logs, test results, etc.)
       - name: Upload test results
