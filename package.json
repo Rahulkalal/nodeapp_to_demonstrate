@@ -1,27 +1,16 @@
 {
   "name": "nodeapp_to_demonstrate",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Rahulkalal/nodeapp_to_demonstrate.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Rahulkalal/nodeapp_to_demonstrate/issues"
-  },
-  "homepage": "https://github.com/Rahulkalal/nodeapp_to_demonstrate#readme",
   "dependencies": {
     "express": "^4.21.2"
   },
   "devDependencies": {
     "jest": "^29.7.0",
-    "supertest": "^7.0.0"
+    "supertest": "^6.2.3"
   }
 }
+
