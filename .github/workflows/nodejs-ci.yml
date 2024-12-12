@@ -3,31 +3,31 @@ name: Node.js CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # Trigger the workflow on push to the main branch
+      - main  # This triggers the workflow on push to the main branch
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # Checkout code
+      # Step 1: Checkout the code
       - name: Checkout code
         uses: actions/checkout@v4.2.2
 
-      # Set up Node.js environment
+      # Step 2: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v4.1.0
         with:
           node-version: '18.19.1'
 
-      # Install dependencies
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: npm install
 
-      # Run tests and output to log file
+      # Step 4: Run tests and output to log file
       - name: Run tests
         run: npm test --coverage > test-output.log 2>&1
 
-      # List files before upload (for debugging)
+      # Step 5: List the contents of the coverage directory and log file (for debugging)
       - name: List files before upload
         run: |
           echo "Listing contents of coverage/ directory"
@@ -35,7 +35,7 @@ jobs:
           echo "Listing test-output.log file"
           ls -l test-output.log
 
-      # Upload build artifacts (logs, test results, etc.)
+      # Step 6: Upload build artifacts (test results and coverage)
       - name: Upload test results
         uses: actions/upload-artifact@v4.4.3
         with:
@@ -49,17 +49,17 @@ jobs:
     needs: build  # This job depends on the build job
 
     steps:
-      # Checkout code again (required for each job)
+      # Step 1: Checkout code again (required for each job)
       - name: Checkout code
         uses: actions/checkout@v4.2.2
 
-      # Download artifacts from the build job
+      # Step 2: Download artifacts from the build job
       - name: Download build artifacts
         uses: actions/download-artifact@v4.1.8
         with:
           name: test-results
 
-      # Example of using the artifacts (you could deploy, analyze logs, etc.)
+      # Step 3: Example of using the artifacts (you could deploy, analyze logs, etc.)
       - name: Display downloaded artifacts
         run: |
           echo "Artifacts have been downloaded!"
